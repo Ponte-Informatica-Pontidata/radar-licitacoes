@@ -1,0 +1,379 @@
+{
+  "gerado_em": "2026-10-15T10:23:38-03:00",
+  "iniciado_em": "2026-10-15T10:23:03-03:00",
+  "fonte": "API pública do PNCP (https://pncp.gov.br/api/consulta/v3/api-docs)",
+  "parametros": {
+    "uf": "MG",
+    "referencia": "2026-10-15",
+    "contratacoes": {
+      "endpoint": "/v1/contratacoes/proposta",
+      "dataFinal": "20271015",
+      "uf": "MG"
+    },
+    "itens": {
+      "endpoint": "/api/pncp/v1/orgaos/{cnpj}/compras/{ano}/{sequencial}/itens",
+      "tamanhoPagina": 500
+    },
+    "contratos": {
+      "endpoint": "/v1/contratos",
+      "dataInicial": "2026-09-15",
+      "dataFinal": "2026-10-14",
+      "filtro_uf": "no cliente, por unidadeOrgao.ufSigla",
+      "observacao": "montado a partir do cache, possivelmente parcial"
+    }
+  },
+  "requisicoes": {},
+  "qualidade": {
+    "contratacoes_fora_da_uf_descartadas": 0,
+    "falhas_ao_buscar_itens": 0
+  },
+  "lgpd": {
+    "fornecedores_pf_anonimizados": 494,
+    "cpfs_mascarados_em_texto": 214,
+    "fornecedores_pe_anonimizados": 6,
+    "nomes_pf_mascarados_em_texto": 13,
+    "razoes_sociais_com_nome_de_pf_mascaradas": 4,
+    "processos_judiciais_mascarados": 143,
+    "nomes_por_contexto_mascarados": 16,
+    "nomes_pf_distintos_mascarados": 482,
+    "metodo": "PF/PE sem documento e sem nome; chave = HMAC-SHA256 com pepper secreto não versionado"
+  },
+  "tabelas": {
+    "orgao": {
+      "linhas": 1306,
+      "colunas": [
+        "cnpj",
+        "razao_social",
+        "esfera_id",
+        "poder_id"
+      ],
+      "arquivos": [
+        {
+          "arquivo": "orgao.csv",
+          "linhas": 1306,
+          "bytes": 70148,
+          "sha256": "cb919bdbc2929c9cff8aebeb7514311ce659f6210c5ed52e104b7c68ad47d921"
+        }
+      ]
+    },
+    "unidade": {
+      "linhas": 2366,
+      "colunas": [
+        "cnpj_orgao",
+        "codigo_unidade",
+        "nome_unidade",
+        "uf_sigla",
+        "uf_nome",
+        "municipio_nome",
+        "codigo_ibge"
+      ],
+      "arquivos": [
+        {
+          "arquivo": "unidade.csv",
+          "linhas": 2366,
+          "bytes": 208793,
+          "sha256": "7bb87c336fe2b58a2e5da5e6004f9085afc38a0d58c9c3f8861dba106bf87f94"
+        }
+      ]
+    },
+    "contratacao": {
+      "linhas": 5304,
+      "colunas": [
+        "numero_controle_pncp",
+        "cnpj_orgao",
+        "codigo_unidade",
+        "ano_compra",
+        "sequencial_compra",
+        "numero_compra",
+        "processo",
+        "modalidade_id",
+        "modo_disputa_id",
+        "situacao_compra_id",
+        "instrumento_convocatorio_id",
+        "amparo_legal_codigo",
+        "srp",
+        "objeto_compra",
+        "informacao_complementar",
+        "valor_total_estimado",
+        "valor_total_homologado",
+        "data_publicacao_pncp",
+        "data_abertura_proposta",
+        "data_encerramento_proposta",
+        "data_inclusao",
+        "data_atualizacao",
+        "data_atualizacao_global",
+        "link_sistema_origem",
+        "link_processo_eletronico",
+        "justificativa_presencial",
+        "usuario_nome"
+      ],
+      "arquivos": [
+        {
+          "arquivo": "contratacao.csv",
+          "linhas": 5304,
+          "bytes": 3559661,
+          "sha256": "b9dd972ee4170012e67c7236122bc8b96456f69bed408ee8ead736be4d2ef7e3"
+        }
+      ]
+    },
+    "contratacao_item": {
+      "linhas": 145669,
+      "colunas": [
+        "numero_controle_pncp",
+        "numero_item",
+        "descricao",
+        "material_ou_servico",
+        "quantidade",
+        "unidade_medida",
+        "valor_unitario_estimado",
+        "valor_total",
+        "orcamento_sigiloso",
+        "criterio_julgamento_id",
+        "situacao_item_id",
+        "tipo_beneficio_id",
+        "categoria_item_id",
+        "tem_resultado",
+        "ncm_nbs_codigo",
+        "ncm_nbs_descricao",
+        "catalogo_codigo_item",
+        "informacao_complementar",
+        "data_inclusao",
+        "data_atualizacao"
+      ],
+      "arquivos": [
+        {
+          "arquivo": "contratacao_item.csv",
+          "linhas": 145669,
+          "bytes": 39630029,
+          "sha256": "9782030ab65526de15477049b9b51f93be993100e759bef1850c43148a25e4c8"
+        }
+      ]
+    },
+    "fornecedor": {
+      "linhas": 7332,
+      "colunas": [
+        "chave",
+        "tipo_pessoa",
+        "cnpj",
+        "razao_social",
+        "possivel_mei"
+      ],
+      "arquivos": [
+        {
+          "arquivo": "fornecedor.csv",
+          "linhas": 7332,
+          "bytes": 537195,
+          "sha256": "b7fb6b1c3a4f4704a5d775de43a263e05b9de8e8b6fe6dd6a9e8c60e1f7506d9"
+        }
+      ]
+    },
+    "contrato": {
+      "linhas": 13151,
+      "colunas": [
+        "numero_controle_pncp",
+        "numero_controle_pncp_compra",
+        "numero_controle_pncp_ata",
+        "cnpj_orgao",
+        "codigo_unidade",
+        "ano_contrato",
+        "sequencial_contrato",
+        "numero_contrato_empenho",
+        "processo",
+        "tipo_contrato_id",
+        "categoria_processo_id",
+        "receita",
+        "objeto_contrato",
+        "informacao_complementar",
+        "fornecedor_chave",
+        "subcontratado_chave",
+        "valor_inicial",
+        "valor_parcela",
+        "numero_parcelas",
+        "valor_global",
+        "valor_acumulado",
+        "data_assinatura",
+        "data_vigencia_inicio",
+        "data_vigencia_fim",
+        "data_publicacao_pncp",
+        "data_atualizacao",
+        "data_atualizacao_global",
+        "numero_retificacao",
+        "usuario_nome"
+      ],
+      "arquivos": [
+        {
+          "arquivo": "contrato.csv",
+          "linhas": 13151,
+          "bytes": 7269913,
+          "sha256": "94c6c2b1b4f695cc2ad30081fe1aa1c5d39f3a98520df9558ca8637eb514848c"
+        }
+      ]
+    },
+    "dominio_modalidade": {
+      "linhas": 11,
+      "colunas": [
+        "codigo",
+        "nome"
+      ],
+      "arquivos": [
+        {
+          "arquivo": "dominio_modalidade.csv",
+          "linhas": 11,
+          "bytes": 260,
+          "sha256": "5ef5fdb46677ad0a4fd327e0eb4caad91b91b1c263bbcc195b6ebf64a496e7c0"
+        }
+      ]
+    },
+    "dominio_modo_disputa": {
+      "linhas": 6,
+      "colunas": [
+        "codigo",
+        "nome"
+      ],
+      "arquivos": [
+        {
+          "arquivo": "dominio_modo_disputa.csv",
+          "linhas": 6,
+          "bytes": 105,
+          "sha256": "d87668998ecb8753e0555ca3e919c5cc1229c8bf80d381926e4d53ebcd879926"
+        }
+      ]
+    },
+    "dominio_situacao_compra": {
+      "linhas": 4,
+      "colunas": [
+        "codigo",
+        "nome"
+      ],
+      "arquivos": [
+        {
+          "arquivo": "dominio_situacao_compra.csv",
+          "linhas": 4,
+          "bytes": 64,
+          "sha256": "6b325275dccb07b2e3624af8522cdf4d4d053e1e3f4951304bb1a2c21399fa58"
+        }
+      ]
+    },
+    "dominio_instrumento_convocatorio": {
+      "linhas": 3,
+      "colunas": [
+        "codigo",
+        "nome"
+      ],
+      "arquivos": [
+        {
+          "arquivo": "dominio_instrumento_convocatorio.csv",
+          "linhas": 3,
+          "bytes": 85,
+          "sha256": "af5b7c5b9f39caafe9b1cb99e453bbfae05d532207d14d1a5aabe41487143268"
+        }
+      ]
+    },
+    "dominio_amparo_legal": {
+      "linhas": 25,
+      "colunas": [
+        "codigo",
+        "nome",
+        "descricao"
+      ],
+      "arquivos": [
+        {
+          "arquivo": "dominio_amparo_legal.csv",
+          "linhas": 25,
+          "bytes": 6612,
+          "sha256": "da02fd2a243c71c116398129da781e657548b7282bc75ce9a0b091354f8dfe1e"
+        }
+      ]
+    },
+    "dominio_criterio_julgamento": {
+      "linhas": 8,
+      "colunas": [
+        "codigo",
+        "nome"
+      ],
+      "arquivos": [
+        {
+          "arquivo": "dominio_criterio_julgamento.csv",
+          "linhas": 8,
+          "bytes": 163,
+          "sha256": "9878e9a31c0c007fcabd446d637d4c0acb9500d6ebe24750eab172030fccff85"
+        }
+      ]
+    },
+    "dominio_situacao_item": {
+      "linhas": 5,
+      "colunas": [
+        "codigo",
+        "nome"
+      ],
+      "arquivos": [
+        {
+          "arquivo": "dominio_situacao_item.csv",
+          "linhas": 5,
+          "bytes": 92,
+          "sha256": "01e6741aba5c5ac3bd0b03379011dde742a8e0e21cc7161166726585be90bc1e"
+        }
+      ]
+    },
+    "dominio_tipo_beneficio": {
+      "linhas": 5,
+      "colunas": [
+        "codigo",
+        "nome"
+      ],
+      "arquivos": [
+        {
+          "arquivo": "dominio_tipo_beneficio.csv",
+          "linhas": 5,
+          "bytes": 145,
+          "sha256": "d617d182e7b420e517d6dcce121a2afbfdb6e2cb53e351b8b0bf6b3dd5a02b6f"
+        }
+      ]
+    },
+    "dominio_categoria_item": {
+      "linhas": 3,
+      "colunas": [
+        "codigo",
+        "nome"
+      ],
+      "arquivos": [
+        {
+          "arquivo": "dominio_categoria_item.csv",
+          "linhas": 3,
+          "bytes": 60,
+          "sha256": "d521e9376352e1a6394df3e482a348d6495a3c73a9b27df3d718ffbbc4cd3be6"
+        }
+      ]
+    },
+    "dominio_tipo_contrato": {
+      "linhas": 8,
+      "colunas": [
+        "codigo",
+        "nome"
+      ],
+      "arquivos": [
+        {
+          "arquivo": "dominio_tipo_contrato.csv",
+          "linhas": 8,
+          "bytes": 134,
+          "sha256": "ba8d3cc0d38abe68bd44106be07d69db6f79961d8b578a06549c7f86af132a69"
+        }
+      ]
+    },
+    "dominio_categoria_processo": {
+      "linhas": 11,
+      "colunas": [
+        "codigo",
+        "nome"
+      ],
+      "arquivos": [
+        {
+          "arquivo": "dominio_categoria_processo.csv",
+          "linhas": 11,
+          "bytes": 214,
+          "sha256": "5ee7137d56dbf3fda62572aec5aeda235b17929f0856ffc3df9df15bbded578d"
+        }
+      ]
+    }
+  }
+}

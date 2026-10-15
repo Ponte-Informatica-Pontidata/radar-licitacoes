@@ -1,0 +1,26 @@
+name: Manter Supabase ativo
+
+# O plano gratuito do Supabase pausa o projeto após 7 dias com pouca atividade. Uma ESCRITA
+# semanal é o jeito mais seguro de contar como atividade. Sem o segredo, o job só avisa.
+
+on:
+  schedule:
+    - cron: "0 12 * * 1"   # segundas, 09:00 em Brasília
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Registrar batimento
+        env:
+          URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          if [ -z "$URL" ]; then
+            echo "::notice::Supabase ainda não configurado (Sprint 7). Nada a fazer."
+            exit 0
+          fi
+          psql "$URL" -X -q -c "insert into radar.execucao_ingestao (tipo, status, finalizado_em, mensagem) values ('manter_ativo', 'sucesso', now(), 'ping semanal do GitHub Actions')"

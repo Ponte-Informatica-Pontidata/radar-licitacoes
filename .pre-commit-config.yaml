@@ -1,0 +1,23 @@
+# Opcional para quem roda Python fora do Docker: `uv run pre-commit install`
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-yaml
+      - id: check-toml
+      - id: end-of-file-fixer
+        exclude: ^dados/csv/
+      - id: trailing-whitespace
+        exclude: ^dados/csv/
+      - id: check-added-large-files
+        args: ["--maxkb=51200"]
+      - id: detect-private-key
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.0
+    hooks:
+      - id: ruff-check
+      - id: ruff-format
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      - id: gitleaks

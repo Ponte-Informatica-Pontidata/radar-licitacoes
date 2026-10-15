@@ -1,0 +1,32 @@
+# Segredos: nunca versionar
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# Dados locais e saídas de análise (a base oficial fica em dados/csv)
+dados/bruto/
+dados/local/
+*.duckdb
+*.duckdb.wal
+.ipynb_checkpoints/
+
+# Supabase CLI (arquivos locais)
+supabase/.branches/
+supabase/.temp/
+
+# Editores e sistema
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db

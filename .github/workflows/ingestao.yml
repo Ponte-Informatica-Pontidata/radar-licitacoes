@@ -1,0 +1,47 @@
+name: Ingestão do PNCP
+
+# Coleta contratações abertas e grava no Supabase. Na Sprint 7 ganha agendamento diário
+# (descomente o `schedule`) e o modo incremental. Sem o segredo SUPABASE_DB_URL, só avisa.
+# Lembrete: em repositório público, agendamentos são desligados após 60 dias sem atividade.
+
+on:
+  workflow_dispatch:
+    inputs:
+      paginas:
+        description: "Máximo de páginas de 50 contratações"
+        default: "2"
+  # schedule:
+  #   - cron: "0 9 * * *"   # 06:00 em Brasília
+
+permissions:
+  contents: read
+
+jobs:
+  coletar:
+    runs-on: ubuntu-24.04
+    environment: producao
+    steps:
+      - name: Verificar configuração
+        id: cfg
+        env:
+          URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          if [ -z "$URL" ]; then
+            echo "::notice::Supabase ainda não configurado (Sprint 7). Nada a fazer."
+            echo "pronto=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "pronto=true" >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.cfg.outputs.pronto == 'true'
+        uses: actions/checkout@v7
+      - if: steps.cfg.outputs.pronto == 'true'
+        uses: astral-sh/setup-uv@v10.3.0
+        with:
+          python-version: "3.13"
+      - if: steps.cfg.outputs.pronto == 'true'
+        run: uv sync --frozen --no-dev
+      - if: steps.cfg.outputs.pronto == 'true'
+        name: radar coletar
+        env:
+          DATABASE_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: uv run radar coletar --paginas "${{ inputs.paginas || '2' }}"

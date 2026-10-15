@@ -1,0 +1,43 @@
+name: Deploy do banco (Supabase)
+
+# Aplica as migrations no Supabase de produção quando elas mudam na main.
+# Desligado até a Sprint 7: sem o segredo SUPABASE_DB_URL, o job só avisa e termina.
+# O environment "producao" pode exigir aprovação do tech lead antes de rodar.
+
+on:
+  push:
+    branches: [main]
+    paths: ["supabase/migrations/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  migrations:
+    name: supabase db push
+    runs-on: ubuntu-24.04
+    environment: producao
+    steps:
+      - name: Verificar configuração
+        id: cfg
+        env:
+          URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          if [ -z "$URL" ]; then
+            echo "::notice::Supabase ainda não configurado (Sprint 7). Nada a fazer."
+            echo "pronto=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "pronto=true" >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.cfg.outputs.pronto == 'true'
+        uses: actions/checkout@v7
+      - if: steps.cfg.outputs.pronto == 'true'
+        uses: supabase/setup-cli@v3
+        with:
+          version: 2.121.0
+      - if: steps.cfg.outputs.pronto == 'true'
+        name: Aplicar migrations (pooler, modo sessão)
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: supabase db push --db-url "$SUPABASE_DB_URL" --yes

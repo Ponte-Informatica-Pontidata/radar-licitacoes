@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Regras do laboratório, rubrica e roadmap
+    url: https://github.com/Ponte-Informatica-Pontidata/laboratorio
+    about: Processo, regras de IA e onboarding ficam no repositório laboratorio.
