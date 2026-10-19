@@ -30,6 +30,14 @@ def conexao():
         conn = psycopg.connect(url, autocommit=True)
     except psycopg.OperationalError as exc:
         pytest.skip(f"banco indisponível: {exc}")
+    # Na máquina da estagiária, antes da S0-03 o banco ainda não tem tabelas: pula em vez de falhar.
+    # No CI (variável CI definida) o banco é criado antes dos testes, então tabela faltando é erro de verdade.
+    sem_tabelas = conn.execute("select to_regclass('radar.contratacao') is null").fetchone()[0]
+    if sem_tabelas and not os.environ.get("CI"):
+        conn.close()
+        pytest.skip(
+            "banco sem tabelas: rode as migrations e a carga (issue de criação do banco) e teste de novo"
+        )
     yield conn
     conn.close()
 
